@@ -2,14 +2,11 @@ import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
+import { User } from '@supabase/auth-helpers-nextjs'
 
-export default async function AuthButton() {
+export default function AuthButton({ user } : { user: User | null }){
   const cookieStore = cookies()
   const supabase = createClient(cookieStore)
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
 
   const signOut = async () => {
     'use server'
@@ -19,7 +16,7 @@ export default async function AuthButton() {
     await supabase.auth.signOut()
     return redirect('/login')
   }
-
+  
   return user ? (
     <div className="flex items-center gap-4">
       Hey, {user.email}!
