@@ -11,3 +11,7 @@ Character Creator app for ttrpgs
 7. `npx supabase init`
 8. `npx supabase start`
 9. local DB can be found [here](http://localhost:54323/project/default)
+10. `npx supabase login`
+11. `npx supabase link <projectId>`
+12. `npx supabase db pull`
+13. `npx supabase migration up`
