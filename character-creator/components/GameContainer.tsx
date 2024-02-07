@@ -1,57 +1,40 @@
-'use client'
+'use server'
 import { Database } from '@/supabase'
 import { User, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
 import GameCard from './GameCard'
 import NewGameButton from './NewGameButton'
-import React, { ReactElement, useCallback, useEffect, useState } from 'react'
+import React, { ReactElement } from 'react'
+import { cookies } from 'next/headers'
+import { createClient } from '@/utils/supabase/server'
 
-export default function GameContainer({ user }: { user: User }) {
-    const supabase = createClientComponentClient<Database>()
-    const [runningGameCards, setRunningGameCards] = useState<React.ReactNode[]>([])
-    const [playingGameCards, setPlayingGameCards] = useState<React.ReactNode[]>([])
 
-    const getGames = useCallback(async () => {
-        try {
-            const { data, error, status } = await supabase
-                .from('Games')
-                .select()
+export default async function GameContainer() {
+    // Fetch data on the server
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const response = await supabase.auth.getUser();
+    const user = response?.data?.user as User | null;
+    const { data } = await supabase.from('Games').select();
 
-            if (error && status !== 406) {
-                throw error
-            }
+    console.log(data)
 
-            console.log(data)
+    const runningGameCards = data?.filter(game => game.gm_id === user?.id).map(game => (
+        <GameCard id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
+    ));
+    const playingGameCards = data?.filter(game => game.gm_id !== user?.id).map(game => (
+        <GameCard id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
+    ));
 
-            if (data) {
-                data.forEach(game => {
-                    if (game.gm_id === user.id) {
-                        setRunningGameCards([
-                            ...runningGameCards, <GameCard id={game.id} name={game.name} playerCount={(game.players) ? (game.players.length) : (0)} />
-                        ])
-                    } else {
-                        setPlayingGameCards([
-                            <GameCard id={game.id} name={game.name} playerCount={(game.players) ? (game.players.length) : (0)} />
-                        ])
-                    }
-                })
-            }
-        } catch (error) {
-            alert('Error loading game data!')
-            console.log(error)
-        }
-    }, [user, supabase])
-
-    useEffect(() => {
-        getGames()
-    }, [user, getGames])
+    
 
     return (
         <div className=''>
             <p>Running:</p>
-            {(runningGameCards.length) ? runningGameCards : <NewGameButton gameType={'create'} />}
-            <hr></hr>
+            {runningGameCards}
+            <NewGameButton gameType={'create'} />
             <p>Playing:</p>
-            {(playingGameCards.length) ? playingGameCards : <NewGameButton gameType={'join'} />}
+            {playingGameCards}
+            <NewGameButton gameType={'join'} />
         </div>
     )
 }
