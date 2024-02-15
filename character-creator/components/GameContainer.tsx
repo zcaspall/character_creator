@@ -15,8 +15,8 @@ export default async function GameContainer() {
     const supabase = createClient(cookieStore);
     const response = await supabase.auth.getUser();
     const user = response?.data?.user as User | null;
-    const { data, status, error } = (await supabase.from('Games').select(`*, players:joined_games(player_id)`).filter('players.player_id', 'eq', user?.id))
-    
+    const { data, status, error } = await supabase.from('Games').select(`*, joined_games(player_id)`).or(`gm_id.eq.${user?.id}, joined_games.cs.player_id.eq.${user?.id}`)
+    console.log(data)
     const runningGameCards = data?.filter(game => game.gm_id === user?.id).map(game => (
         <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
     ));
