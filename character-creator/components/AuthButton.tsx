@@ -5,9 +5,6 @@ import { redirect } from 'next/navigation'
 import { User } from '@supabase/auth-helpers-nextjs'
 
 export default function AuthButton({ user } : { user: User | null }){
-  const cookieStore = cookies()
-  const supabase = createClient(cookieStore)
-
   const signOut = async () => {
     'use server'
 
