@@ -6,7 +6,6 @@ import NewGameButton from './NewGameButton'
 import React, { ReactElement } from 'react'
 import { cookies } from 'next/headers'
 import { createClient } from '@/utils/supabase/server'
-import { run } from 'node:test'
 
 
 export default async function GameContainer() {
@@ -14,15 +13,21 @@ export default async function GameContainer() {
     const supabase = createClient(cookieStore);
     const response = await supabase.auth.getUser();
     const user = response?.data?.user as User | null;
-    const { data, status, error } = await supabase.from('Games').select(`*, joined_games(player_id)`).or(`gm_id.eq.${user?.id}, joined_games.cs.player_id.eq.${user?.id}`)
-    console.log(data)
-    const runningGameCards = data?.filter(game => game.gm_id === user?.id).map(game => (
-        <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
-    ));
-    const playingGameCards = data?.filter(game => game.gm_id !== user?.id).map(game => (
+    const { data: joinedGames, error: joinedGamesError } = await supabase.from('JoinedGame').select().eq('player_id', user?.id);
+    const { data: hostedGames, error: hostedGamesError } = await supabase.from('Games').select().eq('gm_id', user?.id);
+    if (joinedGamesError || hostedGamesError) {
+        console.error(joinedGamesError);
+        console.error(hostedGamesError);
+        return;
+    }
+
+    const runningGameCards = hostedGames?.map(game => (
         <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
     ));
 
+    const playingGameCards = joinedGames?.map(game => (
+        <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
+    ));
     
 
     return (
