@@ -10,7 +10,6 @@ import { run } from 'node:test'
 
 
 export default async function GameContainer() {
-    // Fetch data on the server
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
     const response = await supabase.auth.getUser();
