@@ -8,7 +8,7 @@ async function Stats(){
         .from('AbilityScores')
         .select()
 
-    //scores = data
+    //scores[] = data
 }
 
 export default function StatBar(){
