@@ -1,17 +1,16 @@
-import Link from 'next/link'
+import { createClient } from "@/utils/supabase/server";
+import { cookies } from 'next/headers'
 
-function StatBox(){
-    return(
-        <h1>
+async function Stats(){
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
         const { data, error } = await supabase
-            .from('countries')
-            .select('name')
-        </h1>
-    );
+        .from('AbilityScores')
+        .select()
+
+    //scores = data
 }
 
-export default function StatScores(){
-    return (
-        <StatBox />
-    );
+export default function StatBar(){
+    
 }
