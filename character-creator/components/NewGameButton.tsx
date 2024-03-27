@@ -16,7 +16,7 @@ export default function NewGameButton({ gameType } : { gameType: String }) {
         <>
             <Button 
                 onPress={onOpen}
-                className="uppercase flex flex-col w-40 h-60 gap-10 my-10 mx-5 bg-opacity-25 hover:bg-opacity-100"
+                className="uppercase flex flex-col w-40 h-60 gap-10 my-10 mx-5 bg-btn-new-background hover:bg-btn-new-background-hover text-btn-new-foreground"
                 >
                 <FontAwesomeIcon icon={faPlus} className="text-3xl"/>
                 {cardText}

@@ -11,15 +11,45 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
         btn: {
-          background: 'hsl(var(--btn-background))',
-          'background-hover': 'hsl(var(--btn-background-hover))',
+          background: 'var(--btn-background)',
+          'background-hover': 'var(--btn-background-hover)',
+          foreground: 'var(--btn-foreground)',
+          new: {
+            background: 'var(--new-btn-background)',
+            foreground: 'var(--new-btn-foreground)',
+            'background-hover': 'var(--new-btn-background-hover)',
+          },
+        },
+        card: {
+          background: 'var(--card-background)',
+          foreground: 'var(--card-foreground)',
+          'background-hover': 'var(--card-background-hover)',
+        },
+        mod: {
+          background: 'var(--mod-background)',
+          foreground: 'var(--mod-foreground)',
+        },
+        input: {
+          background: 'var(--input-background)',
+          foreground: 'var(--input-foreground)',
+          border: 'var(--input-border)',
         },
       },
     },
   },
   darkMode: 'class',
-  plugins: [nextui()],
+  plugins: [nextui({
+              themes: {
+                dark: {
+                  colors: {
+                    primary: {
+                      DEFAULT: "#B4ADEA",
+                    }
+                  }
+                }
+              }
+  })],
 }
