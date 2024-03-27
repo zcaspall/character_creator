@@ -1,5 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from 'next/headers'
+import React from "react";
 
 async function Stats(){
     const cookieStore = cookies();
@@ -12,5 +13,5 @@ async function Stats(){
 }
 
 export default function StatBar(){
-     console.log(Stats())
+     
 }

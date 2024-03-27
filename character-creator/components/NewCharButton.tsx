@@ -1,4 +1,4 @@
-export default function NewGameButton({}){
+export default function NewCharButton({}){
     const buttontext = 'Create a new character'
 
     return(
