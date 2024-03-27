@@ -22,11 +22,11 @@ export default async function GameContainer() {
     }
 
     const runningGameCards = hostedGames?.map(game => (
-        <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
+        <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} type="gm" />
     ));
 
     const playingGameCards = joinedGames?.map(game => (
-        <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} />
+        <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} type="player" />
     ));
     
 

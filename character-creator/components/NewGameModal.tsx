@@ -37,15 +37,15 @@ export default function NewGameModal ({ isOpen, onOpenChange, gameType } : { isO
 
     return (
         <>
-            <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="color text-black flex flex-col justify-center">
+            <Modal isOpen={isOpen} onOpenChange={onOpenChange} className="color text-mod-foreground bg-mod-background flex flex-col justify-center">
                 <ModalContent className="h-3/6">
                     <>
                         <ModalHeader className="text-center flex justify-center">{modalTitle}</ModalHeader>
                         <ModalBody className="flex justify-center ">
-                            <Input id='modalInput' autoFocus label={modalInputLabel} variant="bordered" className="mb-20"/>
+                            <Input id='modalInput' autoFocus label={modalInputLabel} variant="bordered" className="bg-input-background text-input-foreground rounded-xl outline-input-border border-input-border"/>
                         </ModalBody>
                         <ModalFooter className="justify-center">
-                            <Button onPress={modalFunction} className="bg-green-500">{modalTitle}</Button>
+                            <Button onPress={modalFunction} className="bg-btn-background text-btn-foreground hover:bg-btn-background-hover">{modalTitle}</Button>
                         </ModalFooter>
                     </>
                 </ModalContent>
