@@ -4,13 +4,13 @@ import { cookies } from 'next/headers'
 async function Stats(){
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
-        const { data, error } = await supabase
+        const { data : scores, error : staterr} = await supabase
         .from('AbilityScores')
         .select()
 
-    //scores[] = data
+        return scores
 }
 
 export default function StatBar(){
-    
+     console.log(Stats())
 }

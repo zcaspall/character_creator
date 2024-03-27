@@ -1,4 +1,4 @@
-export default function DndChar({
+export default function newchar({
   searchParams,
 }: {
   searchParams: { message: string }
