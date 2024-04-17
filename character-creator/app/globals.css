@@ -57,7 +57,7 @@
   all: revert;
 }
 
-.markdown-preview {
+.markdown-preview .editor {
   padding: 5px;
   width: 100%;
   height: 100%;
