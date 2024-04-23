@@ -1,5 +1,5 @@
-import Dice from '@/components/Dice';
-import HealthBar from '@/components/Healthbar';
+import Dice from '@/components/Dice'
+import HealthBar from '@/components/Healthbar'
 
 export default function gamePagePlayerView() {
     return (

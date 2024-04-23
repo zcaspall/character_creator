@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from 'react';
 
 export default function HealthBar({ currentHealth = 100, maxHealth = 100 }) {
