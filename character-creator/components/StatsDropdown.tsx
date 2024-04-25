@@ -10,6 +10,7 @@ export default function StatsDropdown (){
         () => Array.from(characterStat).join(", ").replaceAll("_", " "),
         [characterStat]
     );
+
     return(
         <div>
         <Dropdown>
