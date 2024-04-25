@@ -7,7 +7,7 @@ export default function gamePageGmView({ params } : { params: { slug: string } }
             <Tabs color='default' variant='underlined' >
                 <Tab key='characters' title='Player Characters'>
                 </Tab>
-                <Tab key='npcs' title='NPCs' href='/npcs'>
+                <Tab key='npcs' title='NPCs'>
                 </Tab>
                 <Tab key="encounters" title="Encounters">
                 </Tab>
