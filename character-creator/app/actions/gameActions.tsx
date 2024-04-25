@@ -36,8 +36,9 @@ async function JoinGame({ inviteCode } : { inviteCode: string }) {
     } else if (data) {
         const game = data[0];
         const player = user?.id;
-        const { error } = await supabase.from('joined_games').insert({game_id: game.id, player_id: player})
-        if (error) {
+        const { error } = await supabase.from('JoinedGame').insert({player_id: player, game_id: game.id});
+        const { error: error2 } = await supabase.from('Games').update({players: game.players + 1}).eq('id', game.id)
+        if (error || error2) {
             console.error(error);
             return;
         } else {
