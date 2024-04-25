@@ -1,39 +1,22 @@
 "use client"
 
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, useEffect } from "react"
 import {useState} from "react"
 import {Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button} from "@nextui-org/react";
 
-export default function StatsDropdown (){
-    const [characterStat, setcharacterStat] = useState<Set<string>>(new Set([""]))
-    const selectedStat = React.useMemo(
-        () => Array.from(characterStat).join(", ").replaceAll("_", " "),
-        [characterStat]
-    );
+export default function StatsDropdown ({ statName, statChange, stats} : {statName: string, statChange: (e: React.ChangeEvent<HTMLInputElement>) => void, stats: any}) {
+    const [modifier, setModifier] = useState<number>(0)
 
+    useEffect(() => {
+        setModifier(Math.floor((stats[statName] - 10) / 2))
+    }, [stats])
+    
+    
     return(
         <div>
-        <Dropdown>
-            <DropdownTrigger>
-                <Button variant = "shadow">
-                    {selectedStat}
-                </Button>
-            </DropdownTrigger>
-            <DropdownMenu
-                aria-label="stats"
-                variant = "flat"
-                selectionMode="single"
-                hideSelectedIcon = {true}
-                selectedKeys = {characterStat}
-                onSelectionChange = {(keys) => setcharacterStat(keys as Set<string>)}>
-                    <DropdownItem key = "15">15</DropdownItem>
-                    <DropdownItem key = "14">14</DropdownItem>
-                    <DropdownItem key = "13">13</DropdownItem>
-                    <DropdownItem key = "12">12</DropdownItem>
-                    <DropdownItem key = "10">10</DropdownItem>
-                    <DropdownItem key = "8">8</DropdownItem>
-                </DropdownMenu>
-        </Dropdown>
-    </div>
+            <label>{statName}:</label>
+            <input className="w-20 h-20" type="number" onChange={statChange} name={statName} ></input>
+            <div>{Number.isNaN(modifier) ? 0 : modifier}</div>
+        </div>
     )
 }

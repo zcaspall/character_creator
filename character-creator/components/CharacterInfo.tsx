@@ -1,6 +1,6 @@
 "use client"
 
-import React, { Dispatch, SetStateAction } from "react"
+import React, { Dispatch, SetStateAction, use, useEffect } from "react"
 import {useState} from "react"
 import StatsDropdown from "./StatsDropdown";
 import ClassDropdown from "./ClassDropdown";
@@ -8,6 +8,7 @@ import RaceDropdown from "./RaceDropdown";
 import BackgroundDropdown from "./BackgroundDropdown";
 import { sendToDB } from "./SendToDB";
 import {Button} from "@nextui-org/react";
+import ProficienyBox from "./ProficiencyBox";
 
 /*
 * Take the user id and save to a variable
@@ -18,146 +19,75 @@ import {Button} from "@nextui-org/react";
 
 export default function CharacterInfo() {
     const [characterName, setCharacterName] = useState("")
-    const [playerName, setPlayerName] = useState("")
     const [characterRace, setCharacterRace] = useState("")
     const [characterClass, setCharacterClass] = useState("")
     const [characterBG, setCharacterBG] = useState("")
+    const [characterStats, setCharacterStats] = useState({})
+    const [skillProfs, setSkillProfs] = useState([])
+    const [saveProfs, setSaveProfs] = useState([])
+    const [inspo, setInspo] = useState(false)
+    const [profBonus, setProfBonus] = useState(2)
+    const [level, setLevel] = useState(1)
 
+    const handleStatChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setCharacterStats({...characterStats, [e.target.name]: parseInt(e.target.value)})
+    }
+
+    //useEffect(() => {
+    //    console.log(skillProfs);
+    //}, [skillProfs])
+
+    const skills = ["Acrobatics (DEX)", "Animal Handling (WIS)","Arcana (INT)", "Athletics (STR)", "Deception (CHA)", "History (INT)", "Insight (WIS)", "Intimidation (CHA)", "Investigation (INT)", "Medicine (WIS)", "Nature (INT)", "Perception (WIS)", "Performance (CHA)", "Persuasion (CHA)", "Religion (INT)", "Sleight of Hand (DEX)", "Stealth (DEX)", "Survival (WIS)"]
+    const savingThrows = ["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"]
   return (
-    <div>
-
-        <h1>Character Creator</h1>
-        <br/>
-
-        <div className = "CharacterInfo">
-            Character Name: 
+    <div className="grid grid-cols-8 gap-4">
+        <div className="col-span-4 ">
+            <label>Character Name:</label>
             <input onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setCharacterName(e.target.value)} value = {characterName}/>
             <br/>
         </div>
 
-        <div>
-            Player Name:
-            <input onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setPlayerName(e.target.value)} value = {playerName}/>
-        </div>
-
-        <div>
-            <RaceDropdown characterRace ={characterRace} handleChange={setCharacterRace}/>
-        </div>
-        <button>
-        
-        </button>
-        
-        <div>
-            <ClassDropdown characterClass = {characterClass} handleChange = {setCharacterClass}/>
+        <div className="col-span-4 grid grid-rows-2 grid-cols-2 gap-2">
+            <label>Class:</label>
+            <input onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setCharacterClass(e.target.value)} value = {characterClass}/>
+            <label>Level:</label>
+            <input type = "number" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setLevel(parseInt(e.target.value))} value={level} />
+            <label>Background:</label>
+            <input onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setCharacterBG(e.target.value)} value = {characterBG}/>
+            <label>Race:</label>
+            <input onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setCharacterRace(e.target.value)} value = {characterRace}/>
         </div>
         
-        <div>
-            Strength: <StatsDropdown/>
-            Dexterity: <StatsDropdown/>
-            Constitution: <StatsDropdown/>
-            Intelligence: <StatsDropdown/>
-            Wisdom: <StatsDropdown/>
-            Charisma: <StatsDropdown/>
+        <div className="col-span-1">
+            <StatsDropdown statName="Strength" statChange={handleStatChange} stats={characterStats}/>
+            <StatsDropdown statName="Dexterity" statChange={handleStatChange} stats={characterStats}/>
+            <StatsDropdown statName="Constitution" statChange={handleStatChange} stats={characterStats}/>
+            <StatsDropdown statName="Intelligence" statChange={handleStatChange} stats={characterStats}/>
+            <StatsDropdown statName="Wisdom" statChange={handleStatChange} stats={characterStats}/>
+            <StatsDropdown statName="Charisma" statChange={handleStatChange} stats={characterStats}/>
         </div>
-   
-        <div>
-            Select your background:
-            <BackgroundDropdown characterBG = {characterBG} handleChange = {setCharacterBG}/>
-        </div>
+        <div className="col-span-2">
+            <div className="flex flex-col">
+                <label>
+                    <input type="checkbox" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInspo(e.target.checked)} checked={inspo} />
+                    Inspiration
+                </label>
+                <label>Proficiency Bonus:
+                    <input type="number" value={profBonus} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProfBonus(parseInt(e.target.value))} />
+                </label>
+            </div>
+            <div className="flex flex-col">
+                Saving Throws:
+                <ProficienyBox skills={savingThrows} proficiencies={saveProfs} setProficiencies={setSaveProfs}/>
+            </div>
 
-        <div>
-            Skill Proficiencies:
+            <div className="flex flex-col">
+                Skill Proficiencies:
 
-            <label>
-                <input type = "checkbox" name = "AcroProf" value = "Acrobatics"/>
-                Acrobatics (Dex)
-            </label>
+                <ProficienyBox skills={skills} proficiencies={skillProfs} setProficiencies={setSkillProfs}/>
 
-            <label>
-                <input type = "checkbox" name = "AniProf" value = "Animal Handling"/>
-                Animal Handling (Wis)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "ArcaProf" value = "Arcana"/>
-                Arcana (Int)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "AthProf" value = "Athletics"/>
-                Athletics (Str)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "DecProf" value = "Deception"/>
-                Deception (Chr)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "HisProf" value = "History"/>
-                History (Int)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "InsProf" value = "Insight"/>
-                Insight (Wis)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "IntmProf" value = "Indimidation"/>
-                Intimidation (Chr)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "InvProf" value = "Investigation"/>
-                Investigation
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "MedProf" value = "Medicine"/>
-                Medicine (Wis)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "NatProf" value = "Nature"/>
-                Nature (Int)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "PerProf" value = "Perception"/>
-                Perception (Wis)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "PrfProf" value = "Performance"/>
-                Performance (Chr)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "Prs" value = "Persuasion"/>
-                Acrobatics (Chr)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "RelProf" value = "Religion"/>
-                Religion (Int)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "SleProf" value = "Sleight of Hand"/>
-                Sleight of Hand (Dex)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "StlProf" value = "Stealth"/>
-                Stealth (Dex)
-            </label>
-
-            <label>
-                <input type = "checkbox" name = "SurProf" value = "Survival"/>
-                Survival (Wis)
-            </label>
-
+            </div>
+        
         </div>
         <Button type = "button" onClick = {() => sendToDB(characterName)} 
                 className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover text-btn-foreground">
