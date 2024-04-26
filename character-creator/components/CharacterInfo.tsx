@@ -57,7 +57,7 @@ export default function CharacterInfo() {
             <label>Race:</label>
             <input onChange = {(e: React.ChangeEvent<HTMLInputElement>) => setCharacterRace(e.target.value)} value = {characterRace}/>
         </div>
-        
+
         <div className="col-span-1">
             <StatsDropdown statName="Strength" statChange={handleStatChange} stats={characterStats}/>
             <StatsDropdown statName="Dexterity" statChange={handleStatChange} stats={characterStats}/>
@@ -87,11 +87,11 @@ export default function CharacterInfo() {
                 <ProficienyBox skills={skills} proficiencies={skillProfs} setProficiencies={setSkillProfs}/>
 
             </div>
-        
+
         </div>
         <Button type = "button" onClick = {() => sendToDB(characterName)} 
                 className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover text-btn-foreground">
-            send character name to db
+            Save Character
         </Button>
     </div>
   )
