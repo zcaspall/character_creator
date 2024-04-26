@@ -17,9 +17,6 @@ export default function gamePageGmView({ params } : { params: { slug: string } }
                     <SessionNotes slug={params.slug} />
                 </Tab>
             </Tabs>
-            <div style={{ position: 'fixed', bottom: '10px', right: '10px' }}>
-                <Dice />
-            </div>
         </div>
     )
 }

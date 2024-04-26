@@ -6,6 +6,7 @@ import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 import Dice from '@/components/Dice'
 import HealthBar from '@/components/Healthbar'
+import CharacterContainer from '@/components/CharacterContainer'
 config.autoAddCss = false
 
 export default async function Index() {
@@ -26,12 +27,6 @@ export default async function Index() {
       <div>
         {user ? <GameContainer /> : <p>Login to see your games.</p>}
       </div>
-      <div style={{ position: 'absolute', bottom: '10px', right: '10px' }}>
-                <Dice />
-            </div>
-            <div>
-                <HealthBar />
-            </div>
     </div>
   )
 }
