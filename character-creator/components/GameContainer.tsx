@@ -13,7 +13,7 @@ export default async function GameContainer() {
     const supabase = createClient(cookieStore);
     const response = await supabase.auth.getUser();
     const user = response?.data?.user as User | null;
-    const { data: joinedGames, error: joinedGamesError } = await supabase.from('JoinedGame').select().eq('player_id', user?.id);
+    const { data: joinedGames, error: joinedGamesError } = await supabase.from('JoinedGame').select('Games(*)').eq('player_id', user?.id);
     const { data: hostedGames, error: hostedGamesError } = await supabase.from('Games').select().eq('gm_id', user?.id);
     if (joinedGamesError || hostedGamesError) {
         console.error(joinedGamesError);
@@ -26,7 +26,7 @@ export default async function GameContainer() {
     ));
 
     const playingGameCards = joinedGames?.map(game => (
-        <GameCard key={game.id} id={game.id} name={game.name} playerCount={game.players ? game.players.length : 0} type="player" />
+        <GameCard key={game.Games.id} id={game.Games.id} name={game.Games.name} playerCount={game.Games.players ? game.Games.players : 0} type="player" />
     ));
     
 

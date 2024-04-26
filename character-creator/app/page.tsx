@@ -7,6 +7,8 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 import Dice from '@/components/Dice'
 import HealthBar from '@/components/Healthbar'
 import CharacterContainer from '@/components/CharacterContainer'
+import NewCharButton from '@/components/NewCharButton'
+import Link from 'next/link'
 config.autoAddCss = false
 
 export default async function Index() {
@@ -22,6 +24,9 @@ export default async function Index() {
       <nav className="w-full flex justify-center border-b border-b-foreground/10 h-16">
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           {supabase && <AuthButton user={user} />}
+        </div>
+        <div>
+          <NewCharButton/>
         </div>
       </nav>
       <div>
