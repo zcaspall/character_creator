@@ -1,6 +1,8 @@
 "use client";
 import { Tab, Tabs } from '@nextui-org/react';
 import SessionNotes from '@/components/GameMasterView/SessionNotes';
+import Dice from '@/components/Dice';
+
 export default function gamePageGmView({ params } : { params: { slug: string } }) {
     return (
         <div className='gm-nav'>
