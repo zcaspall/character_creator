@@ -3,15 +3,19 @@
 import { cookies } from "next/headers";
 import { createClient } from "@/utils/supabase/server";
 
-export async function sendToDB(cName : string){
-    const cookieStore = cookies();
-    const supabase = createClient(cookieStore);
-    console.log("Yelp?")
-    const res = await supabase
-  .from('Character')
+export async function sendToDB(cName : string, cClass : string, level : number, 
+                               cBG : string, cRace : string, profBonus: number, 
+                               cStats: {}, saveProf: string[],skillProf: string[], hp: number){
+  const cookieStore = cookies();
+  const supabase = createClient(cookieStore);
+  const res = await supabase
+  .from('Characters')
   .insert([
-    {CharacterName: cName},
+    {character_name: cName, class: cClass, level: level, 
+    background: cBG, race: cRace, prof_bonus: profBonus,
+    character_stats: cStats, character_skills: skillProf, 
+    saving_throws: saveProf, hp_max: hp}
   ])
   .select()
-  
+  console.log(res)
 }
