@@ -47,4 +47,21 @@ async function JoinGame({ inviteCode } : { inviteCode: string }) {
     }
 }
 
-export { CreateGame, JoinGame }
+async function getInviteCode({ gameId } : { gameId: number }) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase.from('Games').select('invite_code').eq('id', gameId);
+  
+    const inviteCode = data ? data[0]?.invite_code : null;
+    return { inviteCode, inviteCodeError: error }
+}
+
+async function getPlayers({ gameId } : { gameId: number }) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase.from('JoinedGame').select('player_id, Users( email ), character_id').eq('game_id', gameId);
+ 
+    return { players: data, playersError: error }
+}
+
+export { CreateGame, JoinGame, getInviteCode, getPlayers } 
