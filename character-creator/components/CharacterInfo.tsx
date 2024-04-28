@@ -30,12 +30,6 @@ export default function CharacterInfo() {
         setCharacterStats({...characterStats, [e.target.name]: parseInt(e.target.value)})
     }
 
-    //useEffect(() => {
-    //    console.log(skillProfs);
-    //}, [skillProfs])
-
-    console.log(hitPoints)
-
     const skills = ["Acrobatics (DEX)", "Animal Handling (WIS)","Arcana (INT)", "Athletics (STR)", "Deception (CHA)", "History (INT)", 
                     "Insight (WIS)", "Intimidation (CHA)", "Investigation (INT)", "Medicine (WIS)", "Nature (INT)", "Perception (WIS)", 
                     "Performance (CHA)", "Persuasion (CHA)", "Religion (INT)", "Sleight of Hand (DEX)", "Stealth (DEX)", "Survival (WIS)"]

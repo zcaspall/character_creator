@@ -9,6 +9,7 @@ import HealthBar from '@/components/Healthbar'
 import CharacterContainer from '@/components/CharacterContainer'
 import NewCharButton from '@/components/NewCharButton'
 import Link from 'next/link'
+import ViewCharacterButton from '@/components/ViewCharacterButton'
 config.autoAddCss = false
 
 export default async function Index() {
@@ -27,6 +28,9 @@ export default async function Index() {
         </div>
         <div>
           <NewCharButton/>
+        </div>
+        <div>
+          <ViewCharacterButton/>
         </div>
       </nav>
       <div>
