@@ -6,16 +6,9 @@ import StatsDropdown from "./StatsDropdown";
 import ClassDropdown from "./ClassDropdown";
 import RaceDropdown from "./RaceDropdown";
 import BackgroundDropdown from "./BackgroundDropdown";
-import { sendToDB } from "./SendToDB";
+import {sendToDB} from "@/app/actions/player/playerActions";
 import {Button} from "@nextui-org/react";
 import ProficienyBox from "./ProficiencyBox";
-
-/*
-* Take the user id and save to a variable
-* save each individual input in its specific format and send in async function
-* right now the uuid and cid will randomly generate for a character
-* how do I link the uuid of the user to the character?
-*/
 
 export default function CharacterInfo() {
     const [characterName, setCharacterName] = useState("")
@@ -83,7 +76,6 @@ export default function CharacterInfo() {
 
             <div className="flex flex-col">
                 Skill Proficiencies:
-
                 <ProficienyBox skills={skills} proficiencies={skillProfs} setProficiencies={setSkillProfs}/>
 
             </div>
