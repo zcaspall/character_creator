@@ -42,7 +42,7 @@ export default async function gamePagePlayerView({ params } : { params: { slug: 
                 </div>
             ) : (
                 <div>
-                    <NewCharButton/>
+                    <NewCharButton />
                 </div>
             )}
         </div>

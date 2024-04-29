@@ -14,7 +14,7 @@ export async function sendToDB(cName : string, cClass : string, level : number,
     {character_name: cName, class: cClass, level: level, 
     background: cBG, race: cRace, prof_bonus: profBonus,
     character_stats: cStats, character_skills: skillProf, 
-    saving_throws: saveProf, hp_max: hp}
+    saving_throws: saveProf, hp_max: hp, hp_curr: hp}
   ])
   .select()
   if (error) {

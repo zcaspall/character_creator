@@ -13,17 +13,17 @@ import { useRouter } from 'next/navigation'
 
 export default function CharacterInfo({ characterData = undefined } : { characterData: any }) {
     
-    const [characterName, setCharacterName] = useState(characterData.character_name)
-    const [characterRace, setCharacterRace] = useState(characterData.race)
-    const [characterClass, setCharacterClass] = useState(characterData.characterClass)
-    const [characterBG, setCharacterBG] = useState(characterData.background)
-    const [characterStats, setCharacterStats] = useState(characterData.character_stats)
-    const [skillProfs, setSkillProfs] = useState(characterData.character_skills)
-    const [saveProfs, setSaveProfs] = useState(characterData.saving_throws)
-    const [inspo, setInspo] = useState(characterData.inspiration || 0)
-    const [profBonus, setProfBonus] = useState(characterData.prof_bonus || 2)
-    const [level, setLevel] = useState(characterData.level || 1)
-    const [hitPoints, setHitPoints] = useState(characterData.hp_curr)
+    const [characterName, setCharacterName] = useState(characterData?.character_name || "")
+    const [characterRace, setCharacterRace] = useState(characterData?.race || "")
+    const [characterClass, setCharacterClass] = useState(characterData?.characterClass || "")
+    const [characterBG, setCharacterBG] = useState(characterData?.background || "")
+    const [characterStats, setCharacterStats] = useState(characterData?.character_stats || {})
+    const [skillProfs, setSkillProfs] = useState(characterData?.character_skills || [])
+    const [saveProfs, setSaveProfs] = useState(characterData?.saving_throws || [])
+    const [inspo, setInspo] = useState(characterData?.inspiration || 0)
+    const [profBonus, setProfBonus] = useState(characterData?.prof_bonus || 2)
+    const [level, setLevel] = useState(characterData?.level || 1)
+    const [hitPoints, setHitPoints] = useState(characterData?.hp_curr || 0)
 
     const router = useRouter()
 
