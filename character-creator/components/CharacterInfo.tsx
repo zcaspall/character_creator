@@ -19,7 +19,7 @@ export default function CharacterInfo() {
     const [characterStats, setCharacterStats] = useState({})
     const [skillProfs, setSkillProfs] = useState([])
     const [saveProfs, setSaveProfs] = useState([])
-    // const [inspo, setInspo] = useState(false)
+    const [inspo, setInspo] = useState(0)
     const [profBonus, setProfBonus] = useState(2)
     const [level, setLevel] = useState(1)
     const [hitPoints, setHitPoints] = useState(1)
@@ -66,6 +66,9 @@ export default function CharacterInfo() {
             </div>
             <div className="col-span-2">
                 <div className="flex flex-col">
+                    <label>Inspiration:
+                        <input type="number" min = "2" value={inspo} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setInspo(parseInt(e.target.value))} />
+                    </label>
                     <label>Proficiency Bonus:
                         <input type="number" min = "2" value={profBonus} onChange={(e: React.ChangeEvent<HTMLInputElement>) => setProfBonus(parseInt(e.target.value))} />
                     </label>
