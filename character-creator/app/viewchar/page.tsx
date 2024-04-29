@@ -4,6 +4,7 @@ export default function ViewCharMenu(){
             <text>
                 BALLSSSSS LMAO
             </text>
+            <characterCard/>
         </div>
     )
 }

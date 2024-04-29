@@ -29,9 +29,6 @@ export default async function Index() {
         <div>
           <NewCharButton/>
         </div>
-        <div>
-          <ViewCharacterButton/>
-        </div>
       </nav>
       <div>
         {user ? <GameContainer /> : <p>Login to see your games.</p>}
