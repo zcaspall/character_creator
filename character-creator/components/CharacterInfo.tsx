@@ -12,7 +12,7 @@ import ProficienyBox from "./ProficiencyBox";
 import { useRouter } from 'next/navigation'
 
 export default function CharacterInfo({ characterData = undefined } : { characterData: any }) {
-    
+
     const [characterName, setCharacterName] = useState(characterData.character_name)
     const [characterRace, setCharacterRace] = useState(characterData.race)
     const [characterClass, setCharacterClass] = useState(characterData.characterClass)
