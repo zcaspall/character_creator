@@ -8,7 +8,7 @@ export async function sendToDB(cName : string, cClass : string, level : number,
                                cStats: {}, saveProf: string[],skillProf: string[], hp: number){
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
-  const res = await supabase
+  const { error } = await supabase
   .from('Characters')
   .insert([
     {character_name: cName, class: cClass, level: level, 
@@ -17,5 +17,7 @@ export async function sendToDB(cName : string, cClass : string, level : number,
     saving_throws: saveProf, hp_max: hp}
   ])
   .select()
-  console.log(res)
+  if (error) {
+    console.error(error)
+  }
 }

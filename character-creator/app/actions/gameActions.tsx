@@ -59,7 +59,7 @@ async function getInviteCode({ gameId } : { gameId: number }) {
 async function getPlayers({ gameId } : { gameId: number }) {
     const cookieStore = cookies();
     const supabase = createClient(cookieStore);
-    const { data, error } = await supabase.from('JoinedGame').select('player_id, Users( email ), character_id').eq('game_id', gameId);
+    const { data, error } = await supabase.from('JoinedGame').select('player_id, Users( email ), Characters( * )').eq('game_id', gameId);
  
     return { players: data, playersError: error }
 }
