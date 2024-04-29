@@ -4,13 +4,13 @@ import { useRouter } from 'next/navigation'
 
 export default function ViewCharacterButton({}){
     const router = useRouter()
-    const text = "View Characters"
+    const buttontext = "View Characters"
 
     return(
         <div>
-            <button type = "button" onClick = {() => router.push('/viewchar')} 
+            <button type = "button" onClick = {() => router.push('/viewcharmenu')} 
                 className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover text-btn-foreground">
-                {text}
+                {buttontext}
             </button>
         </div>
     )

@@ -1,5 +1,9 @@
-<div>
-    <text>
-        BALLLS LOL
-    </text>
-</div>
+export default function ViewChar(){
+    return(
+        <div>
+            <text>
+                BALLSSSSS LMAO
+            </text>
+        </div>
+    )
+}
