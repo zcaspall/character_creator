@@ -64,4 +64,21 @@ async function getPlayers({ gameId } : { gameId: number }) {
     return { players: data, playersError: error }
 }
 
-export { CreateGame, JoinGame, getInviteCode, getPlayers } 
+async function getGameInfo({ gameId } : { gameId: number }) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const { data, error } = await supabase.from('Games').select('name, players').eq('id', gameId);
+
+    return { game: data, gameError: error }
+}
+
+async function getCharacterData({ gameId } : { gameId: number }) {
+    const cookieStore = cookies();
+    const supabase = createClient(cookieStore);
+    const response = await supabase.auth.getUser();
+    const user = response?.data?.user as User | null;
+    const { data, error } = await supabase.from('Characters').select().eq('player_id', user?.id).eq('game_id', gameId);
+
+    return { characterData: data, characterError: error }
+}
+export { CreateGame, JoinGame, getInviteCode, getPlayers, getGameInfo, getCharacterData } 
