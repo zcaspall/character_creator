@@ -1,20 +1,27 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '@fortawesome/fontawesome-svg-core/styles.css'
+import { updateHealth } from '@/app/actions/player/playerActions';
 
-export default function HealthBar({ currentHealth = 20, maxHealth = 20, characterName = 'Character Name' }) {
+export default function HealthBar({ currentHealth = 20, maxHealth = 20, characterName = 'Character Name', id} : { currentHealth: number, maxHealth: number, characterName: string, id: number }) {
   const [health, setHealth] = useState(currentHealth);
 
   const increaseHealth = () => {
     if (health < maxHealth) {
-      setHealth(health + 1);
+      let newHealth = health + 1;
+      setHealth(newHealth);
     }
   };
 
+  useEffect(() => {
+    updateHealth(id, health);
+}, [health])
+
   const decreaseHealth = () => {
     if (health > 0) {
-      setHealth(health - 1);
+      let newHealth = health - 1;
+      setHealth(newHealth);
     }
   };
 

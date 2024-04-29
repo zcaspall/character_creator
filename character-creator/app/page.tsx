@@ -26,9 +26,6 @@ export default async function Index() {
         <div className="w-full max-w-4xl flex justify-between items-center p-3 text-sm">
           {supabase && <AuthButton user={user} />}
         </div>
-        <div>
-          <NewCharButton/>
-        </div>
       </nav>
       <div>
         {user ? <GameContainer /> : <p>Login to see your games.</p>}
