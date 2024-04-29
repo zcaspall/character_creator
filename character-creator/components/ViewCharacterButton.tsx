@@ -8,7 +8,7 @@ export default function ViewCharacterButton({}){
 
     return(
         <div>
-            <button type = "button" onClick = {() => router.push('/viewcharmenu')} 
+            <button type = "button" onClick = {() => router.push('/viewchar')} 
                 className="py-2 px-4 rounded-md no-underline bg-btn-background hover:bg-btn-background-hover text-btn-foreground">
                 {buttontext}
             </button>
